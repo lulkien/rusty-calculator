@@ -1,0 +1,75 @@
+component Button {
+    in property <string> text;
+    in property <color> bg-color: #3a3a3a;
+    in property <color> text-color: #fff;
+    preferred-height: 64px;
+    preferred-width: 64px;
+    Rectangle {
+        background: touch.pressed ? root.bg-color.darker(20%) 
+                                  : touch.has-hover ? root.bg-color.brighter(20%) 
+                                                    : root.bg-color;
+        border-color: root.bg-color.darker(50%);
+        border-radius: 5px;
+        border-width: 2px;
+        touch := TouchArea {}
+    }
+    Text {
+        text: root.text;
+        color: root.text-color;
+    }
+}
+
+component MyTextInput {
+    in property <string> text;
+    in property <color> bg-color: #3a3a3a;
+    in property <color> text-color: #fff;
+    preferred-height: 64px;
+    Rectangle {
+        background: root.bg-color;
+        border-color: root.bg-color.darker(50%);
+        border-radius: 5px;
+        border-width: 2px;
+    }
+    TextInput {
+        padding: 20px;
+        color: root.text-color;
+        vertical-alignment: TextVerticalAlignment.center;
+        horizontal-alignment: TextHorizontalAlignment.right;
+        single-line: true;
+        // read-only: true;
+    }
+}
+
+export component App inherits Window {
+    GridLayout {
+        spacing: 5px;
+        padding: 10px;
+        MyTextInput {
+            colspan: 4;
+        }
+        Row {
+            Button { text: "7"; }
+            Button { text: "8"; }
+            Button { text: "9"; }
+            Button { text: "÷"; }
+        }
+        Row {
+            Button { text: "4"; }
+            Button { text: "5"; }
+            Button { text: "6"; }
+            Button { text: "×"; }
+        }
+        Row {
+            Button { text: "1"; }
+            Button { text: "2"; }
+            Button { text: "3"; }
+            Button { text: "-"; }
+        }
+        Row {
+            Button { text: "0"; }
+            Button { text: "."; }
+            Button { text: "="; }
+            Button { text: "+"; }
+        }
+    }
+}
